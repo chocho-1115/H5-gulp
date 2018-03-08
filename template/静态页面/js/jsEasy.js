@@ -9,6 +9,7 @@ window.publicInfo = {
 	pageLen : 0,//总共多少页
 	
 	viewportHeight : null,
+	scale : 1,
 	prefix : null,
 	htmlFontSize : -1,
 	
@@ -24,26 +25,36 @@ function H5Init(opt){
 	publicInfo.pageSwipeB = opt.pageSwipeB;
 	
 	publicInfo.viewportHeight = opt.viewportHeight||null;
+	publicInfo.scale = opt.scale||1;
 	publicInfo.pageAnimateType = opt.pageAnimateType||'fade';
 	publicInfo.isRem = opt.isRem||false;
 	publicInfo.setPrefix = opt.setPrefix||false;
+	publicInfo.pageLen = publicInfo.page.length;
 	
 	
-	window.publicInfo.pageLen = window.publicInfo.page.length;
 	
 	JSeasy.pageAnimate[publicInfo.pageAnimateType+'Init']();
 	
 	if(publicInfo.viewportHeight&&window.innerHeight<publicInfo.viewportHeight){
 		var w = publicInfo.viewportHeight*window.innerWidth/window.innerHeight;
-		//document.getElementById('content').style.width = w+'px';
-		document.getElementById('viewEle').setAttribute('content','height='+publicInfo.viewportHeight+',width='+w+', user-scalable=no,target-densitydpi = device-dpi');
+		document.getElementById('viewEle').setAttribute('content','width='+w+', user-scalable=no,target-densitydpi = device-dpi');
 	}
 	
+	//document.getElementById('viewEle').setAttribute('content','width='+(opt.viewportWidth||640)+', user-scalable=no,target-densitydpi = device-dpi');
+	/*if(publicInfo.scale!=1){
+		$('body').css('zoom',publicInfo.scale)
+	}*/
 	
 	if(document.querySelector('#fx')){
 		$('.fxBtn').on('click',function(){$('#fx').fadeIn(500);});
 		$('#fx').on('click',function(){$(this).fadeOut(500);});
 	}
+	if(document.querySelector('#tipsBox')){
+		$('#tipsBox').on('click',function(){
+			if($('#tipsBox').attr('close')=='true')$(this).fadeOut(500);
+		});
+	}
+	
 	$('.close').on('click',function(e){
 		$(this.parentNode).css('display','none');
 	});
@@ -61,14 +72,27 @@ function H5Init(opt){
 			if(!publicInfo.pageStatus)return false;
 			if(!publicInfo.pageCutover)return false;
 			if(publicInfo.pageSwipeB[publicInfo.indexPage]===false||publicInfo.pageSwipeB[publicInfo.indexPage]<0)return false;
-			J.pageFunc(publicInfo.indexPage+1);
+			
+			
+			var nextPage = window.publicInfo.page.eq(publicInfo.indexPage).attr('next-page')
+			if(nextPage){
+				J.pageFunc(Number(nextPage));
+			}else{
+				J.pageFunc(publicInfo.indexPage+1);
+			}
 		});
 		//上一页
 		mc.on("swipedown",function(){
 			if(!publicInfo.pageStatus)return false;
 			if(!publicInfo.pageCutover)return false;
 			if(publicInfo.pageSwipeB[publicInfo.indexPage]===false||publicInfo.pageSwipeB[publicInfo.indexPage]>0)return false;
-			J.pageFunc(publicInfo.indexPage-1);
+			
+			var nextPage = window.publicInfo.page.eq(publicInfo.indexPage).attr('previous-page')
+			if(nextPage){
+				J.pageFunc(Number(nextPage));
+			}else{
+				J.pageFunc(publicInfo.indexPage-1);
+			}
 		});
 	}
 
@@ -220,6 +244,35 @@ Date.prototype.format = function(format)
 			else{element['on'+type]=null;}
 		}
 	};
+	JSeasy.throttle = function (method,context){
+			//console.log(method.tId)
+			if(method.tId)clearTimeout(method.tId);
+			//console.log(method.tId)
+			method.tId = setTimeout(function(){
+				method.call(context);
+			},100);
+	};
+	
+	JSeasy.isTime = function (time,tips,callback){
+		var t = (new Date(time)).getTime();
+		var nowT = new Date().getTime();
+		if(nowT<t){
+			JSeasy.tipsText(tips,false)
+			//$('#tipsBox').css('display','block');
+			var anim = window.setInterval(function(){
+				var nowT = new Date().getTime();
+				//console.log(t-nowT)
+				if(nowT>=t){
+					$('#tipsBox').css('display','none');
+					if(callback)callback()
+					clearInterval(anim);
+				}
+			}, 1000); 
+		}else{
+			if(callback)callback()
+	
+		}
+	};
 	
 	
 	JSeasy.browserDetect = function() {
@@ -246,21 +299,40 @@ Date.prototype.format = function(format)
 			$('#upJt').hide();
 		}
 	};
+	
+	JSeasy.tipsText = function (text,closeB){
+		closeB = closeB===undefined?true:closeB;
+		$('#tipsBox span').html(text)
+		$('#tipsBox').attr('close',closeB).fadeIn(300)
+		
+		
+		setTimeout(function(){
+			if($('#tipsBox').attr('close')=='true'){
+				$('#tipsBox').click()
+			}
+		},3000);
+		
+		
+	};
+	
+	
 	//publicInfo.pageSwipeB[publicInfo.indexPage]!=-1&&publicInfo.pageSwipeB[publicInfo.indexPage]!==false
 	JSeasy.pageFunc = function(num,opt){
-		
-		if(window.publicInfo.indexPage==num){
-			if(opt.startCallback)opt.startCallback();
-			if(opt.endCallback)opt.endCallback();
-			return false;
-		}
-		publicInfo.pageStatus = 0;
 		
 		var opt = opt || {},
 			direction = 1,
 			oldPage = publicInfo.page.eq(publicInfo.indexPage),
 			newPage = publicInfo.page.eq(num),
 			self = this;
+		
+		if(window.publicInfo.indexPage==num){
+			if(opt&&opt.startCallback)opt.startCallback();
+			if(opt&&opt.endCallback)opt.endCallback();
+			return false;
+		}
+		publicInfo.pageStatus = 0;
+		
+		
 			
 			
 		if(publicInfo.indexPage>num)direction = -1;
@@ -453,6 +525,29 @@ Date.prototype.format = function(format)
 	};
 	
 	
+	JSeasy.initUpImg = function(btnEle,endCallback){
+		btnEle.addEventListener('change', function () {
+		
+			var file = this.files[0]; //获取file对象
+			//判断file的类型是不是图片类型。
+			if(!/image\/\w+/.test(file.type)){ 
+				alert("文件必须为图片！"); 
+				return false; 
+			} 
+			
+			var reader = new FileReader(); //声明一个FileReader实例
+			
+			//最后在onload事件中，获取到成功读取的文件内容，并以插入一个img节点的方式显示选中的图片
+			reader.onload = function(e){ 
+				//alert(reader.readyState)
+				if(endCallback)endCallback(this)
+				
+			} 
+			reader.readAsDataURL(file); //调用readAsDataURL方法来读取选中的图像文件
+			
+		});	
+	};
+	
 	JSeasy.addMp4 = function(opt){
 		var audioEle = document.createElement('audio');
 		audioEle.setAttribute('src',opt.src);
@@ -525,13 +620,14 @@ Date.prototype.format = function(format)
 	//整数[]  任意数（）
 	JSeasy.getRandomNum = function (Min,Max,integerB){ 
 		if(integerB){
-			return ( Math.round(Math.random()*(Max-Min+1)+Min) )
+			return ( Math.floor(Math.random()*(Max-Min+1)+Min) )
 		}else{
 			return ( Min + Math.random()*(Max-Min) )
 		}
 	};
 	 
 	JSeasy.rotateWindows = function(opt){
+
 		opt = opt||{};
 		var isSet = false,
 			winW = opt.winW||1136, winH = opt.winH||640;
@@ -569,9 +665,7 @@ Date.prototype.format = function(format)
 			}else if( window.orientation == 90 || window.orientation == -90 ) {
 				$('.rotateWindows_tips').css('display','block');
 			}
-			
 		}
-	
 	}
 	
 	
@@ -587,7 +681,7 @@ Date.prototype.format = function(format)
 			TweenMax.set(newPage,{display:'block'});
 			TweenMax.to(oldPage,time/1000,{opacity:0});
 			TweenMax.to(newPage,time/1000,{opacity:1,onComplete:function(){
-				TweenMax.set(oldPage,{display:'none'});
+				TweenMax.set(window.publicInfo.page.not(newPage),{display:'none'});
 				callBack()
 			}});
 			

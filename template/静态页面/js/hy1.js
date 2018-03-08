@@ -1,5 +1,8 @@
 // JavaScript Document
 //escape   unescape
+
+
+
 $(window).load(function(e) {
 	//缓存全局变量
 	var win = window,
@@ -7,20 +10,38 @@ $(window).load(function(e) {
 	
 	//跳到第二页
 	H5Init({
-		pageAnimateType: 'threeD',//fade translate threeD
-		//viewportHeight : 1108,
+		pageAnimateType: 'fade',//fade translate threeD
+		viewportHeight: 1008,
+		//scale : window.innerHeight<1008?window.innerHeight/1008:1,
 		pageSwipeB : {
-			'0':1,
-			'1':1,
-			'2':0,
-			'3':-1,
-			'4':0,
-			'5':0,
-			'6':-1,
+			'0':false,
+			'1':false,
+			'2':false,
+			'3':false,
+			'4':false,
+			'5':false,
+			'6':false,
 		},
-	})
+	});
 	
-	J.pageFunc(1,{time:0,endCallback:function(){console.log('翻页成功后的回调')}})//显示第indexPage页
+	//横屏 
+	//window.orientation = 90
+	/*JSeasy.rotateWindows({
+		winW:1136,//页面最大宽度 在手机中根据手机高度自动适配
+		winH:640,//页面适配宽度
+		callback: function(opt){
+			
+		},
+		onRotate: function(opt){
+			
+		}
+	});*/
+	/*JSeasy.isTime("Dec 08, 2017 11:54:00",'活动将于12点开始',function(){
+		J.pageFunc(1,{time:0,endCallback:function(){console.log('翻页成功后的回调')}})//显示第indexPage页
+	});*/
+	
+	var page = Number(J.getQueryString('page'))||1
+	J.pageFunc(page,{endCallback:function(){   }});
 	
 	
 	//setTimeout(function(){J.pageFunc(1,{endCallback:function(){alert(0)}})},3000)
@@ -45,16 +66,12 @@ $(window).load(function(e) {
 		$('#micBtn').addClass('show');
 	}, false); 
 	
-	
-	
 	//关闭页面下拉刷新
 	JSeasy.setScroll(false)//
 	
-	//  获取地址里面带的参数
-	JSeasy.getQueryString('openid')
 	
-	//获取 10-20的随机整数
-	JSeasy.getRandomNum(10,20,true)
+	
+	//JSeasy.tipsText('请输入您的昵称')
 	
 	/*	window.J.lazyLoad('.lazy_load',{
 		fileload:function(item){console.log(item)},
@@ -85,51 +102,21 @@ $(window).load(function(e) {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//横屏 
-	//window.orientation = 0
-	/*JSeasy.rotateWindows({
-		winW:1136,//页面最大宽度 在手机中根据手机高度自动适配
-		winH:640,//页面适配宽度
-		callback: function(opt){
-			
-		},
-		onRotate: function(opt){
-			
-		}
+	/*JSeasy.initUpImg(document.querySelector('#upimg'),function(reader){
+		console.log(reader)
+		$('.win1 .pic').css({'background-image':'url('+reader.result+')',opacity:1});
+		
+		
 	});*/
 	
 	
 	
-	/*$.get("http://dqpage.com/h5/lvdi/index.php", {openid:ID,Action:"get"}, function(data){
-			console.log(data);//0 玩过；1可以玩；-1没有这个用户 或者不是用微信登陆的
-			isShake = data;
-	},'jsonp');*/
+	
+	
+	
+	
+	
+
 	
 	/*$.post("http://www.cui2.com/h5/tongCheng20151210/index.php?act=chaxun", {openid:openid}, function(data){
 			var data=JSON.parse(data);
@@ -138,20 +125,11 @@ $(window).load(function(e) {
 			JSON.stringify(result)
 	});*/
 	
-	//跳到第二页
-	
 	
 	
 	
 	/*
-	
-	
-	
-	
-	
-	//$('.ewm').fadeIn(300);
-	var mc = new Hammer($('.info .btn')[0])
-	mc.on("tap",function(e){
+	//$('.sub').on("click",function(e){
 		var text1 = $('.info .text1').val().replace(/\s/g, ""),
 			text3 = $('.info .text3').val().replace(/\s/g, ""),
 			text2 = $('.info .text2').val().replace(/\s/g, "");

@@ -2,12 +2,11 @@
 <html class='noScroll' xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="utf-8">
-<!--<meta id='viewEle' name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>-->
 <meta id='viewEle' name="viewport" content="width=640,user-scalable=no,target-densitydpi = device-dpi " />
 <meta name="format-detection" content="telephone = no"/>
 <title>赶紧换标题</title>
 <link href="css/reset.css" rel="stylesheet" />
-<!--<link href="plugins/animate.css" rel="stylesheet" />-->
+<!--<link href="plugins/animate.min.css" rel="stylesheet" />-->
 <link href="css/hy1.css" rel="stylesheet" />
 
 
@@ -24,12 +23,12 @@
             <p class="abso load_num">LOADING<span id="set_load_num" >0</span></p>
         </div>
     </div>
-    <div class="page page1">
+    <div class="page page1" next-page='2'>
     	<div class="nr">
         	<p style='position:absolute;left:0;top:45%;width:100%;text-align:center;font-size:60px;'>第一页</p>
         </div>
     </div>
-    <div class="page page2">
+    <div class="page page2" previous-page='1'>
     	<div class="nr">
         	<p style='position:absolute;left:0;top:45%;width:100%;text-align:center;font-size:60px;'>第二页</p>
         </div>
@@ -39,7 +38,7 @@
         	<p style='position:absolute;left:0;top:45%;width:100%;text-align:center;font-size:60px;'>第三页</p>
         </div>
     </div>
-  
+  	
     <!-- disabled="true"　readOnly="true"-->
   	
     
@@ -51,9 +50,9 @@
 <!--end 主体部分-->
 
 
-<!--<div class="scrollBox box1">
+<!--<div class="abso scrollBox">
     <div class="scrollNr">
-        lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>lskjf<br/>
+        
     </div>
 </div>-->
 
@@ -63,7 +62,7 @@
     <input type="text" class='abso text text1' value='' />
     <input type="text" class='abso text text2' value='' />
     <input type="text" class='abso text text3' value='' />
-    <span class="btn"></span>
+    <span class="abso sub"></span>
 </div>
 
 <div class="mask-white-dialog" id="YDUI_LOADING">
@@ -90,29 +89,18 @@
 
 <!--分享提示-->
 <div id="fx"> <img class='fx_text' src="image/fx_text.png" /> </div>
+<div id="tipsBox" close=true><span class="abso">提示文案</span></div>
+
+
 <!--<div class="coy">
-        湘ICP备13002230号
+	湘ICP备13002230号
 </div>-->
+
+<!--<input class="abso upimg" id="upimg" accept="image/*" type="file" style='left:100px;top:100px;width:100px;height:100px;opacity:0.5'/>-->
 
 <div class="rotateWindows_tips"></div>
 
-<!--<div style='display:none;'>
-	<script language="javascript" type="text/javascript" src="http://js.users.51.la/18208555.js"></script>
-</div>
 
-
-
-<script>
-    var _hmt = _hmt || [];
-    (function() {
-        var hm = document.createElement("script");
-        hm.src = "https://hm.baidu.com/hm.js?1ebea0faf73b5d5bac6ef1b97ba37bcd";
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(hm, s);
-    })();
-</script>
-
--->
 
 </body>
 </html>
@@ -124,14 +112,13 @@
 <script src="js/jsEasy.js"></script>
 <script src="js/hy1.js"></script>
 
-<!--
-
-http://www.oo11.net/jssdk.js
-http://www.seth5.com/jssdk.js
-
-<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
-<script src="http://www.hylinkcs.com/lab/jssdk.js" charset="utf-8"></script>
+<!--<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script src="http://www.seth5.com/jssdk.js" charset="utf-8"></script>
 <script>
+
+//http://www.oo11.net/jssdk.js
+//http://www.hylinkcs.com/lab/jssdk.js
+//http://www.dqpage.com/h6/beiBeiXiong20171026/js/jssdk.js
 function setFX(opt){
 
          var wx={
@@ -149,6 +136,7 @@ function setFX(opt){
 }
 
 $(function(){
+	
 	setFX({
 			title:'主标题',
 			desc:'副标题',
@@ -156,5 +144,10 @@ $(function(){
 			link:'',
 			success:null
 	});
+    
+    
+    
+	
+    
 });
 </script>-->

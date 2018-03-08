@@ -1,9 +1,9 @@
 
 //发布环境项目名称
-var distProName = '3333';
+var distProName = '1520499323444';
 
 //开发环境项目名称
-var srcProName = '3333';
+var srcProName = '1520499323444';
 
 
 //开发环境根目录

@@ -2,20 +2,8 @@ var gulp = require('gulp'), //本地安装gulp所用到的地方
     //gulpif = require('gulp-if'),
     uglify = require('gulp-uglify'),
     clean = require('gulp-clean'),
-    config = require('./gulp/tasks/config.js');
-
-var minimist = require('minimist');
-
-var argv = require('minimist')(process.argv.slice(2));
-console.dir(argv);
-
-//新建项目
-gulp.task('create', function() {
-    return gulp.src([config.template+'**/*','!'+config.template+'media/*','!'+config.template+'media']) // 指明源文件路径、并进行文件匹配
-        //.pipe(gulp.dest(config.src.progectRoot));// 输出路径
-        .pipe(gulp.dest(config.src.root + (argv.name||new Date().getTime()) + '/'));// 输出路径
-        
-});
+    config = require('./gulp/tasks/config.js'),
+    minimist = require('minimist');
 
 //html任务
 var html = require('./gulp/tasks/html.js');
@@ -33,6 +21,19 @@ var delProject = require('./gulp/tasks/delProject.js');
 var cleanProject = require('./gulp/tasks/cleanProject.js');
 
 
+
+
+var argv = require('minimist')(process.argv.slice(2));
+console.dir(argv);
+
+//新建项目
+gulp.task('create', function() {
+    return gulp.src([config.template+'**/*','!'+config.template+'media/*','!'+config.template+'media']) // 指明源文件路径、并进行文件匹配
+        //.pipe(gulp.dest(config.src.progectRoot));// 输出路径
+        .pipe(gulp.dest(config.src.root + (argv.name||new Date().getTime()) + '/'));// 输出路径
+        
+});
+
 //其他任务  复制plugins目录和media目录
 gulp.task('plugins', function() {
     return gulp.src(config.src.progectRoot+'静态页面/plugins/**/*') // 指明源文件路径、并进行文件匹配
@@ -47,8 +48,8 @@ gulp.task('media', function() {
 //gulp.task('default',['jsTask','imageTask','cssTask']); //定义默认任务
 gulp.task('default', ['html','css','image','js'], function(){
     //gulp.start('html','css','image','js');
-    console.log('======================== 报告老板,项目构建发布成功~! ========================')
     gulp.start('plugins','media');
+    console.log('======================== 报告老板,项目构建发布成功~! ========================')
     
 });
 

@@ -32,6 +32,25 @@ body{	-webkit-user-select:none;/*文本不可选择*/
 
 			
 			}
+			
+			
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: #fff; opacity:0.4; 
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: #fff;opacity:0.4;
+}
+
+input:-ms-input-placeholder{
+    color: #fff;opacity:0.4;
+}
+
+input::-webkit-input-placeholder{
+    color: #fff;opacity:0.4;
+}		
+	
+			
 .abso{position:absolute;}			
 
 .boxSizing{box-sizing:border-box;}
@@ -47,8 +66,13 @@ display:-webkit-flex;}
 .noScroll body{width:100%;height:100%;overflow:hidden;}	
 		
 /*提示分享层*/
-#fx{background:rgba(0,0,0,.9);position:fixed;left:0;top:0;height:100%;width:100%;text-align:center;display:none;z-index:9999;}
+#fx{background:rgba(0,0,0,.7);position:fixed;left:0;top:0;height:100%;width:100%;text-align:center;display:none;z-index:9999;}
 #fx img{float:right;}
+
+#tipsBox{background:rgba(0,0,0,.7);position:fixed;left:0;top:0;height:100%;width:100%;text-align:center;display:none;z-index:9999;}
+#tipsBox span{background:#ccc;padding:20px;border-radius:4px;color:#333;font-size:25px;left:50%;top:50%;-webkit-transform:translate(-50%,-50%);transform:translate(-50%,-50%)}
+
+
 /*向上滑动提示箭头*/
 .pt-page-moveIconUp {display:none;height:auto;width:25px;position:absolute;z-index:99;left:50%;bottom:3%;margin-left:-12px;-webkit-animation: moveIconUp ease 1.5s both infinite;animation: moveIconUp ease 1.5s both infinite;}
 @-webkit-keyframes moveIconUp{
@@ -129,7 +153,7 @@ display:-webkit-flex;}
 .micBtn{display:none;position:absolute;right:23px;top:23px;width:45px;height:45px;background:url(../image/mc.gif) no-repeat center top;cursor:pointer;}
 .micBtn.hide{background-position:center -100px;}
 .micBtn.show{background-position:center 0;}
-.micBtn .cen{width:100%;height:100%;display:block;border-radius:100px;border:2px solid #247ebc;}
+.micBtn .cen{width:100%;height:100%;display:block;border-radius:100px;border:2px solid #fff;}
 
 .delay_0{-webkit-transition-delay:0s !important;-mos-transition-delay:0s !important;transition-delay:0s !important;}
 .delay_1{-webkit-transition-delay:.05s !important;-mos-transition-delay:.05s !important;transition-delay:.05s !important;}
