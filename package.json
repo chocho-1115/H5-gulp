@@ -9,13 +9,15 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
+    "gulp-if": "^2.0.2",
     "gulp-imagemin": "^3.1.1",
     "gulp-jsbeautifier": "^2.0.3",
     "gulp-plumber": "^1.1.0",
     "gulp-rename": "^1.2.2",
     "gulp-tinypng": "^1.0.2",
     "gulp-uglify": "^3.0.0",
-    "gulp-uglifycss": "^1.0.6"
+    "gulp-uglifycss": "^1.0.6",
+    "minimist": "^1.2.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

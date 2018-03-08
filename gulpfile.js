@@ -1,20 +1,21 @@
-
-
-
-//导入工具包 require('node_modules里对应模块')
 var gulp = require('gulp'), //本地安装gulp所用到的地方
+    //gulpif = require('gulp-if'),
     uglify = require('gulp-uglify'),
     clean = require('gulp-clean'),
     config = require('./gulp/tasks/config.js');
 
+var minimist = require('minimist');
+
+var argv = require('minimist')(process.argv.slice(2));
+console.dir(argv);
 
 //新建项目
-gulp.task('createProject', function() {
-    console.log('!'+config.template+'media')
+gulp.task('create', function() {
     return gulp.src([config.template+'**/*','!'+config.template+'media/*','!'+config.template+'media']) // 指明源文件路径、并进行文件匹配
-        .pipe(gulp.dest(config.src.progectRoot));// 输出路径
+        //.pipe(gulp.dest(config.src.progectRoot));// 输出路径
+        .pipe(gulp.dest(config.src.root + (argv.name||new Date().getTime()) + '/'));// 输出路径
+        
 });
-
 
 //html任务
 var html = require('./gulp/tasks/html.js');
@@ -36,7 +37,6 @@ var cleanProject = require('./gulp/tasks/cleanProject.js');
 gulp.task('plugins', function() {
     return gulp.src(config.src.progectRoot+'静态页面/plugins/**/*') // 指明源文件路径、并进行文件匹配
         .pipe(gulp.dest(config.dist.progectRoot+'/plugins'));// 输出路径
-
 });
 
 gulp.task('media', function() {

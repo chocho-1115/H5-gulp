@@ -14,7 +14,7 @@ var distRoot = 'dist/';
 var distProgectRoot = distRoot + distProName +'/';
 module.exports = {
     //模版
-    template : 'H5-template/',
+    template : 'template/',
     // 开发环境
     src : {
         root: srcRoot,
