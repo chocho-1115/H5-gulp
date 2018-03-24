@@ -1,17 +1,13 @@
 
-//发布环境项目名称
-var distProName = '1520499323444';
-
-//开发环境项目名称
-var srcProName = '1520499323444';
-
+//项目名称
+var projectName = 'demo1';
 
 //开发环境根目录
 var srcRoot = 'src/';
-var srcProgectRoot = srcRoot + srcProName +'/';
+var srcProgectRoot = srcRoot + projectName +'/';
 //发布环境根目录
 var distRoot = 'dist/';
-var distProgectRoot = distRoot + distProName +'/';
+var distProgectRoot = distRoot + projectName +'/';
 module.exports = {
     //模版
     template : 'template/',
