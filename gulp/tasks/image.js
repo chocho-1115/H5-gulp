@@ -29,11 +29,11 @@ var config = require('./config.js');
 
 gulp.task('image', function () {
 
-    gulp.src(config.src.image + '/**/*.png')
+    gulp.src(config.src.progectRoot + '/**/*.png')
         .pipe(tinypng('5AP9misXfetjEinithl2N-ix_ApLMXzV'))
-        .pipe(gulp.dest(config.dist.image))
+        .pipe(gulp.dest(config.dist.progectRoot))
 
-    gulp.src(config.src.image + '/**/*.{jpg,gif,ico}') // 指明源文件路径、并进行文件匹配
-        .pipe(gulp.dest(config.dist.image))
+    gulp.src(config.src.progectRoot + '/**/*.{jpg,gif,ico}') // 指明源文件路径、并进行文件匹配
+        .pipe(gulp.dest(config.dist.progectRoot))
 
 })

@@ -1,10 +1,10 @@
 
 //项目名称
-var projectName = 'demo1';
+var projectName = '联通';
 
 //开发环境根目录
 var srcRoot = 'src/';
-var srcProgectRoot = srcRoot + projectName +'/';
+var srcProgectRoot = srcRoot + projectName +'/静态页面/';
 //发布环境根目录
 var distRoot = 'dist/';
 var distProgectRoot = distRoot + projectName +'/';
@@ -15,10 +15,10 @@ module.exports = {
     src : {
         root: srcRoot,
         progectRoot: srcProgectRoot,
-        html: srcProgectRoot + '静态页面/',
-        js: srcProgectRoot + '静态页面/js/',
-        css: srcProgectRoot + '静态页面/css/',
-        image: srcProgectRoot + '静态页面/image/'
+        html: srcProgectRoot,
+        js: srcProgectRoot + 'js/',
+        css: srcProgectRoot + 'css/',
+        image: srcProgectRoot + 'image/'
     },
     // 发布环境
     dist : {
