@@ -36,12 +36,12 @@ gulp.task('create', function() {
 
 //其他任务  复制plugins目录和media目录
 gulp.task('plugins', function() {
-    return gulp.src(config.src.progectRoot+'静态页面/plugins/**/*') // 指明源文件路径、并进行文件匹配
+    return gulp.src(config.src.progectRoot+'plugins/**/*') // 指明源文件路径、并进行文件匹配
         .pipe(gulp.dest(config.dist.progectRoot+'/plugins'));// 输出路径
 });
 
 gulp.task('media', function() {
-    return gulp.src(config.src.progectRoot+'静态页面/media/**/*') // 指明源文件路径、并进行文件匹配
+    return gulp.src(config.src.progectRoot+'media/**/*') // 指明源文件路径、并进行文件匹配
             .pipe(gulp.dest(config.dist.progectRoot+'/media'));// 输出路径
 });
 
